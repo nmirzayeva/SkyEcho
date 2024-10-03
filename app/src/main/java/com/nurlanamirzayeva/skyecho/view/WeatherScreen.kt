@@ -5,13 +5,18 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -27,6 +32,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.nurlanamirzayeva.skyecho.R
+import com.nurlanamirzayeva.skyecho.model.HourlyModel
+import java.util.concurrent.Future
 
 
 @Preview
@@ -148,8 +155,34 @@ fun WeatherScreen() {
                     }
 
                     //Displaying "Today" label
-                    Text(text = "Today")
+                    Text(
+                        text = "Today",
+                        fontSize = 20.sp,
+                        color = Color.White,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 24.dp, vertical = 8.dp)
 
+                    )
+
+                }
+
+                //Display future hourly forecast using a LazyRow
+                item {
+                    LazyRow(
+                        modifier = Modifier.fillMaxWidth(),
+                        contentPadding = PaddingValues(horizontal = 20.dp),
+
+                        horizontalArrangement = Arrangement.spacedBy(4.dp)
+                    ) {
+
+                        item(items) {
+
+
+                        }
+
+
+                    }
                 }
 
             }
@@ -159,6 +192,32 @@ fun WeatherScreen() {
     }
 
 }
+
+
+//ViewHolder for each hourly forecast item
+@Composable
+fun FutureModelViewHolder() {
+    Column(
+        modifier = Modifier
+            .width(90.dp)
+            .wrapContentHeight()
+            .padding(4.dp)
+    ) {
+
+    }
+}
+
+
+// sample hourly data
+
+val items = listOf(
+    HourlyModel("9 pm", 28, "cloudy"),
+    HourlyModel("10 pm", 29, "sunny"),
+    HourlyModel("11 pm", 30, "wind"),
+    HourlyModel("12 pm", 31, "rainy"),
+    HourlyModel("1 am", 28, "storm")
+)
+
 
 @Composable
 fun WeatherDetailItem(icon: Int, value: String, label: String) {
