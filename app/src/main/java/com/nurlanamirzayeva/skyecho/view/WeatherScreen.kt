@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -24,6 +25,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -176,8 +178,8 @@ fun WeatherScreen() {
                         horizontalArrangement = Arrangement.spacedBy(4.dp)
                     ) {
 
-                        item(items) {
-
+                        items(items) { item->
+                              FutureModelViewHolder(model = item)
 
                         }
 
@@ -196,14 +198,61 @@ fun WeatherScreen() {
 
 //ViewHolder for each hourly forecast item
 @Composable
-fun FutureModelViewHolder() {
+fun FutureModelViewHolder(model: HourlyModel) {
     Column(
         modifier = Modifier
             .width(90.dp)
             .wrapContentHeight()
             .padding(4.dp)
+            .background(
+                color = colorResource(id = R.color.purple),
+                shape = RoundedCornerShape(8.dp)
+            )
+            .padding(8.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+
     ) {
 
+        Text(
+            text = model.hour,
+            color = Color.White,
+            fontSize = 16.sp,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp),
+            textAlign = TextAlign.Center
+
+        )
+
+
+        Image(
+            painter = painterResource(
+                id = when (model.picPath) {
+                    "cloudy" -> R.drawable.cloudy
+                    "sunny" -> R.drawable.sunny
+                    "wind" -> R.drawable.wind
+                    "rainy" -> R.drawable.rainy
+                    "storm" -> R.drawable.storm
+                    else -> R.drawable.sunny
+                }
+            ), contentDescription = null,
+            modifier = Modifier
+                .size(45.dp)
+                .padding(8.dp),
+            contentScale = ContentScale.Crop
+        )
+
+
+        Text(
+            text = "${model.temp}",
+            color = Color.White,
+            fontSize = 16.sp,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp),
+            textAlign = TextAlign.Center
+
+        )
     }
 }
 
