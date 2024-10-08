@@ -33,6 +33,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.nurlanamirzayeva.skyecho.FutureModel
 import com.nurlanamirzayeva.skyecho.R
 import com.nurlanamirzayeva.skyecho.model.HourlyModel
 import java.util.concurrent.Future
@@ -143,7 +144,7 @@ fun WeatherScreen() {
                             )
                             WeatherDetailItem(
                                 icon = R.drawable.wind,
-                                value = "22%",
+                                value = "12 Km/h",
                                 label = "Wind Speed"
                             )
                             WeatherDetailItem(
@@ -178,8 +179,8 @@ fun WeatherScreen() {
                         horizontalArrangement = Arrangement.spacedBy(4.dp)
                     ) {
 
-                        items(items) { item->
-                              FutureModelViewHolder(model = item)
+                        items(items) { item ->
+                            FutureModelViewHolder(model = item)
 
                         }
 
@@ -187,10 +188,111 @@ fun WeatherScreen() {
                     }
                 }
 
+                //Display "Future" label and next 7 day button
+
+                item {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 24.dp, vertical = 16.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            text = "Future",
+                            fontSize = 20.sp,
+                            color = Color.White,
+                            modifier = Modifier.weight(1f)
+                        )
+                        Text(
+                            text = "Next 7 day>",
+                            fontSize = 14.sp,
+                            color = Color.White,
+                            fontWeight = FontWeight.Bold
+                        )
+                    }
+                }
+
+                items(dailyItems) {
+
+                    FutureItem(item =it)
+                }
+
             }
 
         }
 
+    }
+
+}
+
+//sample daily data
+val dailyItems = listOf(
+
+    FutureModel("Sat", "storm", "Storm", 24, 12),
+    FutureModel("Sun", "cloudy", "Cloudy", 25, 16),
+    FutureModel("Mon", "windy", "Windy", 29, 15),
+    FutureModel("Tue", "cloudy_sunny", "Cloudy Sunny", 23, 23),
+    FutureModel("Wen", "sunny", "Sunny", 28, 11),
+    FutureModel("Thu", "rainy", "Rainy", 23, 12)
+
+
+)
+
+//Display each future daily forecast item
+@Composable
+fun FutureItem(item: FutureModel) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 24.dp, vertical = 4.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(
+            text = item.day,
+            color = Color.White,
+            fontSize = 14.sp
+
+        )
+        Image(
+            painter = painterResource(
+                id = when (item.picPath) {
+                    "storm" -> R.drawable.storm
+                    "cloudy" -> R.drawable.cloudy
+                    "windy" -> R.drawable.windy
+                    "cloudy_sunny" -> R.drawable.cloudy_sunny
+                    "sunny" -> R.drawable.sunny
+                    "rainy" -> R.drawable.sunny
+                    else -> R.drawable.sunny
+
+                }
+
+            ), contentDescription = null, modifier = Modifier
+                .padding(start = 32.dp)
+                .size(45.dp)
+
+        )
+
+        Text(
+            text = item.status, modifier = Modifier
+                .weight(1f)
+                .padding(start = 16.dp),
+            color = Color.White,
+            fontSize = 14.sp
+
+        )
+
+        Text(
+            text = "${item.highTemp}",
+            modifier = Modifier.padding(end = 16.dp),
+            color = Color.White,
+            fontSize = 14.sp
+        )
+
+        Text(
+            text = "${item.lowTemp}",
+            color = Color.White,
+            fontSize = 14.sp
+        )
     }
 
 }
