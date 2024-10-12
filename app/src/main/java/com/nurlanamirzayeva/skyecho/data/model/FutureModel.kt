@@ -1,4 +1,4 @@
-package com.nurlanamirzayeva.skyecho
+package com.nurlanamirzayeva.skyecho.data.model
 
 data class FutureModel(
     val day: String,

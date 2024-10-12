@@ -1,4 +1,4 @@
-package com.nurlanamirzayeva.skyecho.model
+package com.nurlanamirzayeva.skyecho.data.model
 
 data class HourlyModel(
     val hour: String,

@@ -1,4 +1,4 @@
-package com.nurlanamirzayeva.skyecho.view
+package com.nurlanamirzayeva.skyecho.ui.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -14,7 +14,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -33,10 +32,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.nurlanamirzayeva.skyecho.FutureModel
+import com.nurlanamirzayeva.skyecho.data.model.FutureModel
 import com.nurlanamirzayeva.skyecho.R
-import com.nurlanamirzayeva.skyecho.model.HourlyModel
-import java.util.concurrent.Future
+import com.nurlanamirzayeva.skyecho.data.model.HourlyModel
 
 
 @Preview
